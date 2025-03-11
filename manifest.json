@@ -1,10 +1,10 @@
 {
   "name": "Super Chwazi",
-  "short_name": "Chwazi",
+  "short_name": "Shwazi",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ff0000",
-  "description": "A very simple yet very powerful CHWAZI.",
+  "description": "A stupidly simple app to decide who pays the coffee: Super Chwazi aka Shwazi",
   "icons": [
     {
       "src": "icon.png",
