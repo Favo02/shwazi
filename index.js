@@ -61,9 +61,7 @@ function explode() {
     let id = Array.from(touches)[random];
 
     touches.forEach(touch => {
-
         if (touch != id) {
-
             let div = document.getElementById(touch);
             let tries = 0;
             while (!div && tries < 100) {
@@ -72,11 +70,8 @@ function explode() {
             }
             if (div) div.remove();
         }
-
     })
-
-    touches = new Set();
-    resetTimer();
+    document.getElementById("app").classList.add("exploded");
 }
 
 function resetTimer() {

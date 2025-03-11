@@ -1,13 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
 #app {
-    border: 1px solid red;
     height: 100vw;
     height: 100vh;
 }
 
 .element {
     position: absolute;
-    border: 1px solid blue;
-    height: 100px;
-    width: 100px;
+    border: 3px solid red;
+    height: 130px;
+    width: 130px;
     border-radius: 100%;
+}
+
+#app.exploded {
+    background-color: red;
+}
+
+#app.exploded ~ .element {
+    background-color: white;
+}
+
+h1 {
+    font-family: sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0.3;
 }
