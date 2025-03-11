@@ -1,6 +1,10 @@
 let touches = new Set();
 let timer;
 
+document.addEventListener("touchstart", start);
+document.addEventListener("touchend", end);
+document.addEventListener("touchmove", move);
+
 function start(e) {
     e.preventDefault();
     for (let i = 0; i < e.touches.length; i++) {
@@ -72,6 +76,26 @@ function explode() {
         }
     })
     document.getElementById("app").classList.add("exploded");
+    document.getElementById("reset").classList.remove("hidden");
+
+    document.removeEventListener("touchstart", start);
+    document.removeEventListener("touchend", end);
+    document.removeEventListener("touchmove", move);
+}
+
+function reset() {
+    touches.clear();
+    document.getElementById("app").classList.remove("exploded");
+    document.getElementById("reset").classList.add("hidden");
+    let elements = document.getElementsByClassName("element");
+    while (elements.length > 0) {
+        elements[0].remove();
+    }
+    clearTimeout(timer);
+
+    document.addEventListener("touchstart", start);
+    document.addEventListener("touchend", end);
+    document.addEventListener("touchmove", move);
 }
 
 function resetTimer() {

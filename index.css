@@ -25,11 +25,30 @@ body {
 }
 
 h1 {
+    font-size: 70px;
     font-family: sans-serif;
     position: fixed;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
     opacity: 0.3;
+}
+
+#reset {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 20px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
 }
