@@ -1,4 +1,5 @@
 let touches = new Set();
+let timer;
 
 function start(e) {
     e.preventDefault();
@@ -10,6 +11,7 @@ function start(e) {
         touches.add(e.touches[i].identifier);
         addElement(e.touches[i].clientX, e.touches[i].clientY, e.touches[i].identifier);
     }
+    resetTimer();
 }
 
 function end(e) {
@@ -18,11 +20,14 @@ function end(e) {
         touches.delete(e.changedTouches[i].identifier);
 
         let div = document.getElementById(e.changedTouches[i].identifier);
-        while (!div) {
+        let tries = 0;
+        while (!div && tries < 100) {
+            tries++;
             div = document.getElementById(e.changedTouches[i].identifier);
         }
-        div.remove();
+        if (div) div.remove();
     }
+    resetTimer();
 }
 
 function move(e) {
@@ -30,11 +35,15 @@ function move(e) {
     for (let i = 0; i < e.touches.length; i++) {
         let id = e.touches[i].identifier;
         let div = document.getElementById(id);
-        if (!div) {
+        let tries = 0;
+        if (!div && tries < 100) {
+            tries++;
             continue
         }
-        div.style.left = (e.touches[i].clientX - 50) + "px";
-        div.style.top = (e.touches[i].clientY - 50) + "px";
+        if (div) {
+            div.style.left = (e.touches[i].clientX - 50) + "px";
+            div.style.top = (e.touches[i].clientY - 50) + "px";
+        }
     }
 }
 
@@ -45,4 +54,34 @@ function addElement(x, y, id) {
     element.style.left = (x - 50) + "px";
     element.style.top = (y - 50) + "px";
     document.body.appendChild(element);
+}
+
+function explode() {
+    const random = Math.floor(Math.random() * touches.size);
+    let id = Array.from(touches)[random];
+
+    touches.forEach(touch => {
+
+        if (touch != id) {
+
+            let div = document.getElementById(touch);
+            let tries = 0;
+            while (!div && tries < 100) {
+                tries++;
+                div = document.getElementById(touch);
+            }
+            if (div) div.remove();
+        }
+
+    })
+
+    touches = new Set();
+    resetTimer();
+}
+
+function resetTimer() {
+    clearTimeout(timer);
+    if (touches.size > 1) {
+        timer = setTimeout(explode, 2000);
+    }
 }
